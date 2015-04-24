@@ -1,6 +1,6 @@
 {
 	"name": "sumotion",
-	"description": "A minimal D application.",
+	"description": "Sumo + Gravity",
 	"copyright": "Copyright © 2015, josh",
 	"authors": ["josh"],
 	"dependencies": {
