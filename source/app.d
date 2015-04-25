@@ -1,6 +1,8 @@
 import std.stdio;
 
-void main()
-{
-	writeln("Edit source/app.d to start your project.");
+import gl_utils;
+
+void main() {
+    init();
+    destroy();
 }
