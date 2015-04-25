@@ -33,7 +33,7 @@ bool init() {
     window = SDL_CreateWindow("Sumotion",
             SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED,
             width, height,
-            SDL_WINDOW_OPENGL);
+            SDL_WINDOW_OPENGL | SDL_WINDOW_INPUT_FOCUS);
 
     if (!window) {
         writeln("Couldn't create window: ", SDL_GetError());
@@ -48,14 +48,19 @@ bool init() {
     glClearColor(0, 0, 0, 0);
     glViewport(0, 0, width, height);
 
-    DerelictGL.reload();
 
     return true;
 }
-
 
 void destroy() {
     SDL_GL_DeleteContext(context);
     SDL_DestroyWindow(window);
     SDL_Quit();
+}
+
+
+void render_blank() {
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+    SDL_GL_SwapWindow(window);
 }
