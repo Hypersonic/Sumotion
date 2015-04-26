@@ -68,6 +68,7 @@ void render() {
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 
+    // Render all triangles
     glBegin(GL_TRIANGLES);
     for (int i = 0, c = 0; i < tri_buffer.length; i+=6, c+=3) {
         glColor3f(color_buffer[c], color_buffer[c+1], color_buffer[c+2]);
