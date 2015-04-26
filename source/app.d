@@ -7,6 +7,9 @@ import gl_utils;
 void main() {
     init();
     bool running = true;
+    auto t = 0;
+    float x = 0;
+    float y = 0;
     while (running) {
 
         // Handle input
@@ -14,6 +17,13 @@ void main() {
         while (SDL_PollEvent(&e)) {
             switch (e.type) {
                 case SDL_KEYDOWN:
+                    switch (e.key.keysym.sym) {
+                        case SDLK_q:
+                            running = false;
+                            break;
+                        default:
+                            break;
+                    }
                     break;
                 case SDL_QUIT:
                     running = false;
@@ -23,9 +33,11 @@ void main() {
             }
         }
 
-        push_tri([0,0,1,1,0,1], [1,0,0]);
+        import std.math;
+        push_tri([0,0,cos(t/10.0),sin(t/10.0),sin(t/10.0),cos(t/10.0)], [1,0,0]);
         push_tri([0,0,-.5,-.5,0,-1],[0,1,0]);
 
+        t++;
         render();
 
     }
