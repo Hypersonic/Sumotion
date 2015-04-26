@@ -8,8 +8,8 @@ SDL_Window* window;
 // Rendering context
 SDL_GLContext context;
 // Window width and heightk
-int width = 640,
-    height = 480;
+int width  = 640,
+    height = 640;
 
 
 // Internal buffer of triangles to be rendered on the next rendering pass
