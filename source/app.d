@@ -34,9 +34,10 @@ void main() {
         }
 
         import std.math;
-        push_tri([-1,-1,-.5,-.5,0,-1],[0,1,0]);
         
         push_rect([-1,-1],[1,1]);
+
+        push_tri([-1,-1,-.5,-.5,0,-1],[0,1,0]);
 
         // Render ring for the edge of the field
         push_circle([0,0], .91, [1,1,1]);
