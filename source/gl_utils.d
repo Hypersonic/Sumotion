@@ -66,14 +66,13 @@ void render() {
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 
-    // TODO: Render all triangles in tri_buffer here
+    glBegin(GL_TRIANGLES);
     for (int i = 0; i < tri_buffer.length; i+=6) {
-        glBegin(GL_TRIANGLES);
-            glVertex3f(tri_buffer[i  ], tri_buffer[i+1], 0);
-            glVertex3f(tri_buffer[i+2], tri_buffer[i+3], 0);
-            glVertex3f(tri_buffer[i+4], tri_buffer[i+5], 0);
-        glEnd();
+        glVertex3f(tri_buffer[i  ], tri_buffer[i+1], 0);
+        glVertex3f(tri_buffer[i+2], tri_buffer[i+3], 0);
+        glVertex3f(tri_buffer[i+4], tri_buffer[i+5], 0);
     }
+    glEnd();
     
     tri_buffer.length = 0; // clear tri_buffer
 
