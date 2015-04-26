@@ -14,6 +14,8 @@ int width = 640,
 
 // Internal buffer of triangles to be rendered on the next rendering pass
 GLfloat[] tri_buffer;
+// Internal buffer of colors corresponding to triangles in tri_buffer
+GLfloat[] color_buffer;
 
 /*
  * Initialize graphics stuff, like a window to draw on and such
@@ -67,10 +69,11 @@ void render() {
 
 
     glBegin(GL_TRIANGLES);
-    for (int i = 0; i < tri_buffer.length; i+=6) {
-        glVertex3f(tri_buffer[i  ], tri_buffer[i+1], 0);
-        glVertex3f(tri_buffer[i+2], tri_buffer[i+3], 0);
-        glVertex3f(tri_buffer[i+4], tri_buffer[i+5], 0);
+    for (int i = 0, c = 0; i < tri_buffer.length; i+=6, c+=3) {
+        glColor3f(color_buffer[c], color_buffer[c+1], color_buffer[c+2]);
+        glVertex2f(tri_buffer[i  ], tri_buffer[i+1]);
+        glVertex2f(tri_buffer[i+2], tri_buffer[i+3]);
+        glVertex2f(tri_buffer[i+4], tri_buffer[i+5]);
     }
     glEnd();
     
@@ -78,8 +81,11 @@ void render() {
 
     SDL_GL_SwapWindow(window);
 }
-void push_tri(GLfloat[6] indecies) {
+void push_tri(GLfloat[6] indecies, GLfloat[3] color=[1,1,1]) {
     foreach (index; indecies) {
         tri_buffer ~= index;
+    }
+    foreach (component; color) {
+        color_buffer ~= component;
     }
 }
