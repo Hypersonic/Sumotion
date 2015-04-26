@@ -112,7 +112,7 @@ void push_tri(GLfloat[6] indecies, GLfloat[3] color=[1,1,1]) {
 void push_circle(GLfloat[2] center, GLfloat radius, GLfloat[3] color=[1,1,1]) {
     import std.math;
     import std.conv;
-    auto resolution = 8;
+    auto resolution = 32;
     foreach (i; 0 .. resolution) {
         auto theta       = ((i+.5  ) * 2 * PI) / resolution;
         auto theta_prime = ((i+.5+1) * 2 * PI) / resolution;
@@ -123,6 +123,6 @@ void push_circle(GLfloat[2] center, GLfloat radius, GLfloat[3] color=[1,1,1]) {
             center[0] + cos(theta_prime).to!float*radius,
             center[1] + sin(theta_prime).to!float*radius
             ];
-        push_tri(tri);
+        push_tri(tri, color);
     }
 }
