@@ -8,8 +8,8 @@ SDL_Window* window;
 // Rendering context
 SDL_GLContext context;
 // Window width and heightk
-int width  = 640,
-    height = 640;
+int width  = 720,
+    height = 720;
 
 
 // Internal buffer of triangles to be rendered on the next rendering pass
@@ -106,6 +106,16 @@ void push_tri(GLfloat[6] indecies, GLfloat[3] color=[1,1,1]) {
             color_buffer ~= component;
         }
     }
+}
+
+// Push a rectangle
+void push_rect(GLfloat[2] top_left, GLfloat[2] bottom_right, GLfloat[3] color=[1,1,1]) {
+    push_tri([top_left[0], top_left[1],
+              top_left[0], bottom_right[1],
+              bottom_right[0], top_left[1]], color);
+    push_tri([bottom_right[0], bottom_right[1],
+              bottom_right[0], top_left[1],
+              top_left[0], bottom_right[1]], color);
 }
 
 // Push some approximation of a circle

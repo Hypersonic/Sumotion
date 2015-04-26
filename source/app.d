@@ -34,10 +34,17 @@ void main() {
         }
 
         import std.math;
-        push_tri([0,0,cos(t/10.0),sin(t/10.0),sin(t/10.0),cos(t/10.0)], [1,0,0, 0,1,0, 0,0,1]);
-        push_tri([0,0,-.5,-.5,0,-1],[0,1,0]);
+        push_tri([-1,-1,-.5,-.5,0,-1],[0,1,0]);
+        
+        push_rect([-1,-1],[1,1]);
 
-        push_circle([0,0], .5);
+        // Render ring for the edge of the field
+        push_circle([0,0], .91, [1,1,1]);
+        push_circle([0,0], .90, [0,0,0]);
+        push_circle([0,0], .89, [1,1,1]);
+
+        push_circle([.25*sin(t/10.0),0], .125, [0,0,0]);
+        push_circle([0,.25*cos(t/10.0)], .125, [0,0,0]);
         t++;
         render();
 
