@@ -23,7 +23,7 @@ void main() {
             }
         }
 
-        render_blank();
+        render();
 
     }
     destroy();

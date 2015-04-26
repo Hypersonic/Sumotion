@@ -11,6 +11,10 @@ SDL_GLContext context;
 int width = 640,
     height = 480;
 
+
+// Internal buffer of triangles to be rendered on the next rendering pass
+GLint[] tri_buffer;
+
 /*
  * Initialize graphics stuff, like a window to draw on and such
  * Returns true when succesful, false if there was an error.
@@ -48,7 +52,6 @@ bool init() {
     glClearColor(0, 0, 0, 0);
     glViewport(0, 0, width, height);
 
-
     return true;
 }
 
@@ -59,8 +62,18 @@ void destroy() {
 }
 
 
-void render_blank() {
+void render() {
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
+
+    // TODO: Render all triangles in tri_buffer here
+    
+    tri_buffer.length = 0; // clear tri_buffer
+
     SDL_GL_SwapWindow(window);
+}
+void push_tri(GLint[3] indecies) {
+    foreach (index; indecies) {
+        tri_buffer ~= index;
+    }
 }
