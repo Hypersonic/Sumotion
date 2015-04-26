@@ -13,7 +13,7 @@ int width = 640,
 
 
 // Internal buffer of triangles to be rendered on the next rendering pass
-GLint[] tri_buffer;
+GLfloat[] tri_buffer;
 
 /*
  * Initialize graphics stuff, like a window to draw on and such
@@ -72,7 +72,7 @@ void render() {
 
     SDL_GL_SwapWindow(window);
 }
-void push_tri(GLint[3] indecies) {
+void push_tri(GLfloat[9] indecies) {
     foreach (index; indecies) {
         tri_buffer ~= index;
     }
