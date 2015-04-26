@@ -114,8 +114,8 @@ void push_circle(GLfloat[2] center, GLfloat radius, GLfloat[3] color=[1,1,1]) {
     import std.conv;
     auto resolution = 8;
     foreach (i; 0 .. resolution) {
-        auto theta       = ((i  ) * 2 * PI) / resolution;
-        auto theta_prime = ((i+1) * 2 * PI) / resolution;
+        auto theta       = ((i+.5  ) * 2 * PI) / resolution;
+        auto theta_prime = ((i+.5+1) * 2 * PI) / resolution;
         GLfloat[6] tri = [
             center[0], center[1],
             center[0] + cos(theta      ).to!float*radius,
