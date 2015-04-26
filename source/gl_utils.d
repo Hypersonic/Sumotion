@@ -84,7 +84,9 @@ void render() {
 
     SDL_GL_SwapWindow(window);
 }
-void push_tri(GLfloat[6] indecies, GLfloat[9] color=[1,1,1, 1,1,1, 1,1,1]) {
+
+// Push a triangle, specifying a color at every vertex
+void push_tri(GLfloat[6] indecies, GLfloat[9] color) {
     foreach (index; indecies) {
         tri_buffer ~= index;
     }
@@ -93,6 +95,8 @@ void push_tri(GLfloat[6] indecies, GLfloat[9] color=[1,1,1, 1,1,1, 1,1,1]) {
     }
 }
 
+// Push a triangle with the given color.
+// Color defaults to [1, 1, 1], or white
 void push_tri(GLfloat[6] indecies, GLfloat[3] color=[1,1,1]) {
     foreach (index; indecies) {
         tri_buffer ~= index;
