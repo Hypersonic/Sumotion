@@ -34,7 +34,7 @@ void main() {
         }
 
         import std.math;
-        push_tri([0,0,cos(t/10.0),sin(t/10.0),sin(t/10.0),cos(t/10.0)], [1,0,0]);
+        push_tri([0,0,cos(t/10.0),sin(t/10.0),sin(t/10.0),cos(t/10.0)], [1,0,0, 0,1,0, 0,0,1]);
         push_tri([0,0,-.5,-.5,0,-1],[0,1,0]);
 
         t++;
