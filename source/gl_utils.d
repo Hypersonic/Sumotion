@@ -67,12 +67,19 @@ void render() {
 
 
     // TODO: Render all triangles in tri_buffer here
+    for (int i = 0; i < tri_buffer.length; i+=6) {
+        glBegin(GL_TRIANGLES);
+            glVertex3f(tri_buffer[i  ], tri_buffer[i+1], 0);
+            glVertex3f(tri_buffer[i+2], tri_buffer[i+3], 0);
+            glVertex3f(tri_buffer[i+4], tri_buffer[i+5], 0);
+        glEnd();
+    }
     
     tri_buffer.length = 0; // clear tri_buffer
 
     SDL_GL_SwapWindow(window);
 }
-void push_tri(GLfloat[9] indecies) {
+void push_tri(GLfloat[6] indecies) {
     foreach (index; indecies) {
         tri_buffer ~= index;
     }
