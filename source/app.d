@@ -24,6 +24,7 @@ void main() {
         }
 
         push_tri([0,0,1,1,0,1]);
+        push_tri([0,0,-.5,-.5,0,-1]);
 
         render();
 
