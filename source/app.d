@@ -37,6 +37,7 @@ void main() {
         push_tri([0,0,cos(t/10.0),sin(t/10.0),sin(t/10.0),cos(t/10.0)], [1,0,0, 0,1,0, 0,0,1]);
         push_tri([0,0,-.5,-.5,0,-1],[0,1,0]);
 
+        push_circle([0,0], .5);
         t++;
         render();
 

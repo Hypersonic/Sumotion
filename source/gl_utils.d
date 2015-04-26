@@ -107,3 +107,22 @@ void push_tri(GLfloat[6] indecies, GLfloat[3] color=[1,1,1]) {
         }
     }
 }
+
+// Push some approximation of a circle
+void push_circle(GLfloat[2] center, GLfloat radius, GLfloat[3] color=[1,1,1]) {
+    import std.math;
+    import std.conv;
+    auto resolution = 8;
+    foreach (i; 0 .. resolution) {
+        auto theta       = ((i  ) * 2 * PI) / resolution;
+        auto theta_prime = ((i+1) * 2 * PI) / resolution;
+        GLfloat[6] tri = [
+            center[0], center[1],
+            center[0] + cos(theta      ).to!float*radius,
+            center[1] + sin(theta      ).to!float*radius,
+            center[0] + cos(theta_prime).to!float*radius,
+            center[1] + sin(theta_prime).to!float*radius
+            ];
+        push_tri(tri);
+    }
+}
