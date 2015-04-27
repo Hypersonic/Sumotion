@@ -93,20 +93,15 @@ void main() {
 
         world.step();
         
+        // Wipe the screen with a rectangle
         push_rect([-1,-1],[1,1]);
-
-        push_tri([-1,-1,-.5,-.5,0,-1],[0,1,0]);
 
         // Render ring for the edge of the field
         push_circle([0,0], world.arena_rad+.01, [1,1,1]);
         push_circle([0,0], world.arena_rad    , [0,0,0]);
         push_circle([0,0], world.arena_rad-.01, [1,1,1]);
 
-
-        import std.math;
-        push_circle([.25*sin(t/10.0),0], .125, [0,0,0]);
-        push_circle([0,.25*cos(t/10.0)], .125, [0,0,0]);
-
+        // Render the players
         GLfloat[3] blue_team_color = [0, .4, 1];
         GLfloat[3] red_team_color  = [.8, .1, 0];
         push_circle([world.p1.x, world.p1.y], world.p1.r, blue_team_color);
