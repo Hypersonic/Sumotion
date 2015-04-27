@@ -3,22 +3,17 @@ import std.stdio;
 import derelict.sdl2.sdl;
 import derelict.opengl3.gl;
 
+import world;
 import player;
 
 import gl_utils;
-
-auto arena_rad = .9;
-
-bool outOfBounds(Player guy) {
-    return (arena_rad - guy.r) * (arena_rad - guy.r) < (guy.x*guy.x + guy.y*guy.y);
-}
 
 void main() {
     init();
     bool running = true;
     auto t = 0;
 
-    Player guy = new Player;
+    World world = new World;
     while (running) {
 
         // Handle input
@@ -31,16 +26,28 @@ void main() {
                             running = false;
                             break;
                         case SDLK_w:
-                            guy.up = true;
+                            world.p1.up = true;
                             break;
                         case SDLK_s:
-                            guy.down = true;
+                            world.p1.down = true;
                             break;
                         case SDLK_d:
-                            guy.right = true;
+                            world.p1.right = true;
                             break;
                         case SDLK_a:
-                            guy.left = true;
+                            world.p1.left = true;
+                            break;
+                        case SDLK_UP:
+                            world.p2.up = true;
+                            break;
+                        case SDLK_DOWN:
+                            world.p2.down = true;
+                            break;
+                        case SDLK_LEFT:
+                            world.p2.left = true;
+                            break;
+                        case SDLK_RIGHT:
+                            world.p2.right = true;
                             break;
                         default:
                             break;
@@ -49,16 +56,28 @@ void main() {
                 case SDL_KEYUP:
                     switch (e.key.keysym.sym) {
                         case SDLK_w:
-                            guy.up = false;
+                            world.p1.up = false;
                             break;
                         case SDLK_s:
-                            guy.down = false;
+                            world.p1.down = false;
                             break;
                         case SDLK_d:
-                            guy.right = false;
+                            world.p1.right = false;
                             break;
                         case SDLK_a:
-                            guy.left = false;
+                            world.p1.left = false;
+                            break;
+                        case SDLK_UP:
+                            world.p2.up = false;
+                            break;
+                        case SDLK_DOWN:
+                            world.p2.down = false;
+                            break;
+                        case SDLK_LEFT:
+                            world.p2.left = false;
+                            break;
+                        case SDLK_RIGHT:
+                            world.p2.right = false;
                             break;
                         default:
                             break;
@@ -72,60 +91,26 @@ void main() {
             }
         }
 
-        if (guy.up) {
-            guy.ctrl_vy += .01;
-        }
-        if (guy.down) {
-            guy.ctrl_vy -= .01;
-        }
-        if (guy.right) {
-            guy.ctrl_vx += .01;
-        }
-        if (guy.left) {
-            guy.ctrl_vx -= .01;
-        }
-
-        import std.math;
-
-        auto len_sq = guy.ctrl_vx*guy.ctrl_vx + guy.ctrl_vy*guy.ctrl_vy; 
-        // Normalize!
-        if (len_sq > guy.max_speed*guy.max_speed) {
-            guy.ctrl_vx *= guy.max_speed / sqrt(len_sq);
-            guy.ctrl_vy *= guy.max_speed / sqrt(len_sq);
-        }
-
-        // Move, checking collisions and reseting velocity if needed
-        guy.x += (guy.env_vx + guy.ctrl_vx);
-        if (guy.outOfBounds()) {
-            guy.x -= (guy.env_vx + guy.ctrl_vx);
-            guy.ctrl_vx = 0;
-        }
-        guy.y += (guy.env_vy + guy.ctrl_vy);
-        if (guy.outOfBounds()) {
-            guy.y -= (guy.env_vy + guy.ctrl_vy);
-            guy.ctrl_vy = 0;
-        }
-
-        // Apply friction
-        guy.ctrl_vx *= guy.friction;
-        guy.ctrl_vy *= guy.friction;
+        world.step();
         
         push_rect([-1,-1],[1,1]);
 
         push_tri([-1,-1,-.5,-.5,0,-1],[0,1,0]);
 
         // Render ring for the edge of the field
-        push_circle([0,0], arena_rad+.01, [1,1,1]);
-        push_circle([0,0], arena_rad    , [0,0,0]);
-        push_circle([0,0], arena_rad-.01, [1,1,1]);
+        push_circle([0,0], world.arena_rad+.01, [1,1,1]);
+        push_circle([0,0], world.arena_rad    , [0,0,0]);
+        push_circle([0,0], world.arena_rad-.01, [1,1,1]);
 
 
+        import std.math;
         push_circle([.25*sin(t/10.0),0], .125, [0,0,0]);
         push_circle([0,.25*cos(t/10.0)], .125, [0,0,0]);
 
         GLfloat[3] blue_team_color = [0, .4, 1];
         GLfloat[3] red_team_color  = [.8, .1, 0];
-        push_circle([guy.x, guy.y], guy.r, red_team_color);
+        push_circle([world.p1.x, world.p1.y], world.p1.r, blue_team_color);
+        push_circle([world.p2.x, world.p2.y], world.p2.r,  red_team_color);
 
         t++;
         render();
