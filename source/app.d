@@ -73,31 +73,42 @@ void main() {
         }
 
         if (guy.up) {
-            guy.y += .01;
-            if (guy.outOfBounds()) {
-                guy.y -= .01;
-            }
+            guy.ctrl_vy += .01;
         }
         if (guy.down) {
-            guy.y -= .01;
-            if (guy.outOfBounds()) {
-                guy.y += .01;
-            }
+            guy.ctrl_vy -= .01;
         }
         if (guy.right) {
-            guy.x += .01;
-            if (guy.outOfBounds()) {
-                guy.x -= .01;
-            }
+            guy.ctrl_vx += .01;
         }
         if (guy.left) {
-            guy.x -= .01;
-            if (guy.outOfBounds()) {
-                guy.x += .01;
-            }
+            guy.ctrl_vx -= .01;
         }
 
         import std.math;
+
+        auto len_sq = guy.ctrl_vx*guy.ctrl_vx + guy.ctrl_vy*guy.ctrl_vy; 
+        // Normalize!
+        if (len_sq > guy.max_speed*guy.max_speed) {
+            guy.ctrl_vx *= guy.max_speed / sqrt(len_sq);
+            guy.ctrl_vy *= guy.max_speed / sqrt(len_sq);
+        }
+
+        // Move, checking collisions and reseting velocity if needed
+        guy.x += (guy.env_vx + guy.ctrl_vx);
+        if (guy.outOfBounds()) {
+            guy.x -= (guy.env_vx + guy.ctrl_vx);
+            guy.ctrl_vx = 0;
+        }
+        guy.y += (guy.env_vy + guy.ctrl_vy);
+        if (guy.outOfBounds()) {
+            guy.y -= (guy.env_vy + guy.ctrl_vy);
+            guy.ctrl_vy = 0;
+        }
+
+        // Apply friction
+        guy.ctrl_vx *= guy.friction;
+        guy.ctrl_vy *= guy.friction;
         
         push_rect([-1,-1],[1,1]);
 
