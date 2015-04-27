@@ -18,7 +18,7 @@ void main() {
     bool running = true;
     auto t = 0;
 
-    Player guy;
+    Player guy = new Player;
     while (running) {
 
         // Handle input
