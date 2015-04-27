@@ -3,16 +3,13 @@ import std.stdio;
 import derelict.sdl2.sdl;
 import derelict.opengl3.gl;
 
-import gl_utils;
+import player;
 
-struct Guy {
-    float x = 0,y = 0, r = .1;
-    bool up,down,left,right;
-}
+import gl_utils;
 
 auto arena_rad = .9;
 
-bool outOfBounds(Guy guy) {
+bool outOfBounds(Player guy) {
     return (arena_rad - guy.r) * (arena_rad - guy.r) < (guy.x*guy.x + guy.y*guy.y);
 }
 
@@ -21,7 +18,7 @@ void main() {
     bool running = true;
     auto t = 0;
 
-    Guy guy;
+    Player guy;
     while (running) {
 
         // Handle input
