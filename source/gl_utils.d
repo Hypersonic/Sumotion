@@ -54,6 +54,9 @@ bool init() {
     glClearColor(0, 0, 0, 0);
     glViewport(0, 0, width, height);
 
+    glEnable (GL_BLEND);
+    glBlendFunc (GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
     return true;
 }
 
@@ -70,23 +73,24 @@ void render() {
 
     // Render all triangles
     glBegin(GL_TRIANGLES);
-    for (int i = 0, c = 0; i < tri_buffer.length; i+=6, c+=9) {
-        glColor3f(color_buffer[c  ], color_buffer[c+1], color_buffer[c+2]);
+    for (int i = 0, c = 0; i < tri_buffer.length; i+=6, c+=12) {
+        glColor4f(color_buffer[c  ], color_buffer[c+1], color_buffer[c+2 ], color_buffer[c+3 ]);
         glVertex2f(tri_buffer[i  ], tri_buffer[i+1]);
-        glColor3f(color_buffer[c+3], color_buffer[c+4], color_buffer[c+5]);
+        glColor4f(color_buffer[c+4], color_buffer[c+5], color_buffer[c+6 ], color_buffer[c+7 ]);
         glVertex2f(tri_buffer[i+2], tri_buffer[i+3]);
-        glColor3f(color_buffer[c+6], color_buffer[c+7], color_buffer[c+8]);
+        glColor4f(color_buffer[c+8], color_buffer[c+9], color_buffer[c+10], color_buffer[c+11]);
         glVertex2f(tri_buffer[i+4], tri_buffer[i+5]);
     }
     glEnd();
     
     tri_buffer.length = 0; // clear tri_buffer
+    color_buffer.length = 0; // clear color_buffer
 
     SDL_GL_SwapWindow(window);
 }
 
 // Push a triangle, specifying a color at every vertex
-void push_tri(GLfloat[6] indecies, GLfloat[9] color) {
+void push_tri(GLfloat[6] indecies, GLfloat[12] color) {
     foreach (index; indecies) {
         tri_buffer ~= index;
     }
@@ -97,7 +101,7 @@ void push_tri(GLfloat[6] indecies, GLfloat[9] color) {
 
 // Push a triangle with the given color.
 // Color defaults to [1, 1, 1], or white
-void push_tri(GLfloat[6] indecies, GLfloat[3] color=[1,1,1]) {
+void push_tri(GLfloat[6] indecies, GLfloat[4] color=[1,1,1,1]) {
     foreach (index; indecies) {
         tri_buffer ~= index;
     }
@@ -109,7 +113,7 @@ void push_tri(GLfloat[6] indecies, GLfloat[3] color=[1,1,1]) {
 }
 
 // Push a rectangle
-void push_rect(GLfloat[2] top_left, GLfloat[2] bottom_right, GLfloat[3] color=[1,1,1]) {
+void push_rect(GLfloat[2] top_left, GLfloat[2] bottom_right, GLfloat[4] color=[1,1,1,1]) {
     push_tri([top_left[0], top_left[1],
               top_left[0], bottom_right[1],
               bottom_right[0], top_left[1]], color);
@@ -119,7 +123,7 @@ void push_rect(GLfloat[2] top_left, GLfloat[2] bottom_right, GLfloat[3] color=[1
 }
 
 // Push some approximation of a circle
-void push_circle(GLfloat[2] center, GLfloat radius, GLfloat[3] color=[1,1,1]) {
+void push_circle(GLfloat[2] center, GLfloat radius, GLfloat[4] color=[1,1,1,1]) {
     import std.math;
     import std.conv;
     auto resolution = 32;
