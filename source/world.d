@@ -6,15 +6,15 @@ class World {
 
     auto arena_rad = .9;
 
-    const auto G = .0001; // Gravitational constant
+    const auto G = .00003; // Gravitational constant
 
     bool outOfBounds(Player guy) {
         return (arena_rad - guy.r) * (arena_rad - guy.r) < (guy.x*guy.x + guy.y*guy.y);
     }
 
     this() {
-        p1.x -= .1;
-        p2.x += .1;
+        p1.x -= .5;
+        p2.x += .5;
     }
 
     void step() {
@@ -79,8 +79,6 @@ class World {
             // Apply friction
             player.ctrl_vx *= player.friction;
             player.ctrl_vy *= player.friction;
-            player.env_vx *= player.friction*1.1;
-            player.env_vy *= player.friction*1.1;
         }
 
 
