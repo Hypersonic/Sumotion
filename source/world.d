@@ -23,15 +23,22 @@ class World {
         {
             auto dx = p2.x - p1.x;
             auto dy = p2.y - p1.y;
-            auto Fg = G * (p1.mass * p2.mass) / sqrt(dx*dx+dy*dy);
+            auto dist = sqrt(dx*dx+dy*dy);
+            auto Fg = G * (p1.mass * p2.mass) / dist;
 
             auto theta = atan2(dy, dx);
 
-            p1.env_vx += Fg/p1.mass * cos(theta);
-            p1.env_vy += Fg/p1.mass * sin(theta);
+            auto p1_range = p2.mass;
+            if (p1_range >= dist) {
+                p1.env_vx += Fg/p1.mass * cos(theta);
+                p1.env_vy += Fg/p1.mass * sin(theta);
+            }
 
-            p2.env_vx -= Fg/p2.mass * cos(theta);
-            p2.env_vy -= Fg/p2.mass * sin(theta);
+            auto p2_range = p1.mass;
+            if (p2_range >= dist) {
+                p2.env_vx -= Fg/p2.mass * cos(theta);
+                p2.env_vy -= Fg/p2.mass * sin(theta);
+            }
         }
         // Step both players
         foreach (player; [p1, p2]) {
@@ -83,10 +90,10 @@ class World {
         auto dist_sq = dx*dx + dy*dy;
         if (dist_sq < (p1.r + p2.r)*(p1.r + p2.r)) {
             auto angle = atan2(dy, dx);
-            p1.env_vx -= cos(angle) * .01;
-            p1.env_vy -= sin(angle) * .01;
-            p2.env_vx += cos(angle) * .01;
-            p2.env_vy += sin(angle) * .01;
+            p1.env_vx -= cos(angle) * .005;
+            p1.env_vy -= sin(angle) * .005;
+            p2.env_vx += cos(angle) * .005;
+            p2.env_vy += sin(angle) * .005;
         }
     }
 }
