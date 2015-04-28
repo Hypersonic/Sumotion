@@ -6,6 +6,8 @@ class World {
 
     auto arena_rad = .9;
 
+    const auto G = .0001; // Gravitational constant
+
     bool outOfBounds(Player guy) {
         return (arena_rad - guy.r) * (arena_rad - guy.r) < (guy.x*guy.x + guy.y*guy.y);
     }
@@ -16,6 +18,22 @@ class World {
     }
 
     void step() {
+        import std.math;
+        // Apply gravity to players
+        {
+            auto dx = p2.x - p1.x;
+            auto dy = p2.y - p1.y;
+            auto Fg = G * (p1.mass * p2.mass) / sqrt(dx*dx+dy*dy);
+
+            auto theta = atan2(dy, dx);
+
+            p1.env_vx += Fg/p1.mass * cos(theta);
+            p1.env_vy += Fg/p1.mass * sin(theta);
+
+            p2.env_vx -= Fg/p2.mass * cos(theta);
+            p2.env_vy -= Fg/p2.mass * sin(theta);
+        }
+        // Step both players
         foreach (player; [p1, p2]) {
             if (player.up) {
                 player.ctrl_vy += .01;
@@ -54,13 +72,12 @@ class World {
             // Apply friction
             player.ctrl_vx *= player.friction;
             player.ctrl_vy *= player.friction;
-            player.env_vx *= player.friction;
-            player.env_vy *= player.friction;
+            player.env_vx *= player.friction*1.1;
+            player.env_vy *= player.friction*1.1;
         }
 
 
         // Collision detect between players
-        import std.math;
         auto dx = p2.x - p1.x;
         auto dy = p2.y - p1.y;
         auto dist_sq = dx*dx + dy*dy;

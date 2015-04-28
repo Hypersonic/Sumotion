@@ -3,6 +3,7 @@ class Player {
           env_vx = 0, env_vy = 0, // Environment controlled velocity
           ctrl_vx = 0, ctrl_vy = 0, // Player controlled velocity
           max_speed = .1, // Max control velocity
-          friction = .7; // Friction to apply
+          friction = .9, // Friction to apply
+          mass = 1; // Effective mass, changed by player input
     bool up, down, left, right; // Buttons pressed for directions
 }

@@ -37,6 +37,12 @@ void main() {
                         case SDLK_a:
                             world.p1.left = true;
                             break;
+                        case SDLK_r:
+                            world.p1.mass *= 1.1;
+                            break;
+                        case SDLK_f:
+                            world.p1.mass /= 1.1;
+                            break;
                         case SDLK_UP:
                             world.p2.up = true;
                             break;
@@ -97,15 +103,25 @@ void main() {
         push_rect([-1,-1],[1,1]);
 
         // Render ring for the edge of the field
-        push_circle([0,0], world.arena_rad+.01, [1,1,1]);
-        push_circle([0,0], world.arena_rad    , [0,0,0]);
-        push_circle([0,0], world.arena_rad-.01, [1,1,1]);
+        push_circle([0,0], world.arena_rad+.01, [1,1,1,1]);
+        push_circle([0,0], world.arena_rad    , [0,0,0,1]);
+        push_circle([0,0], world.arena_rad-.01, [1,1,1,1]);
 
         // Render the players
-        GLfloat[3] blue_team_color = [0, .4, 1];
-        GLfloat[3] red_team_color  = [.8, .1, 0];
+        GLfloat[4] blue_team_color = [0, .4, 1, 1];
+        GLfloat[4] red_team_color  = [.8, .1, 0, 1];
+        GLfloat[4] blue_team_aura_color = [0, .2, .6, .5];
+        GLfloat[4] red_team_aura_color  = [.4, .05, 0, .5];
+        push_circle([world.p1.x, world.p1.y], world.p1.mass, blue_team_aura_color);
+        push_circle([world.p2.x, world.p2.y], world.p2.mass,  red_team_aura_color);
         push_circle([world.p1.x, world.p1.y], world.p1.r, blue_team_color);
         push_circle([world.p2.x, world.p2.y], world.p2.r,  red_team_color);
+
+        push_tri([world.p1.x-.01, world.p1.y,
+                  world.p1.x+.01, world.p1.y,
+                  world.p1.x+(world.p1.env_vx+world.p1.ctrl_vx)*10,
+                  world.p1.y+(world.p1.env_vy+world.p1.ctrl_vy)*10]);
+
 
         t++;
         render();
