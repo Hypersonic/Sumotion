@@ -88,10 +88,14 @@ class World {
         auto dist_sq = dx*dx + dy*dy;
         if (dist_sq < (p1.r + p2.r)*(p1.r + p2.r)) {
             auto angle = atan2(dy, dx);
-            p1.env_vx -= cos(angle) * .005;
-            p1.env_vy -= sin(angle) * .005;
-            p2.env_vx += cos(angle) * .005;
-            p2.env_vy += sin(angle) * .005;
+            // Midpoint x and y
+            auto mid_x = (p1.x+p2.x)/2;
+            auto mid_y = (p1.y+p2.y)/2;
+            // Move them so they're tangent at whatever the angle between them was
+            p1.x = mid_x - cos(angle) * p1.r;
+            p1.y = mid_y - sin(angle) * p1.r;
+            p2.x = mid_x + cos(angle) * p2.r;
+            p2.y = mid_y + sin(angle) * p2.r;
         }
     }
 }
