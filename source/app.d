@@ -118,41 +118,43 @@ void main() {
         push_circle([world.p2.x, world.p2.y], world.p2.r,  red_team_color);
 
         import std.math;
-        // Velocity vector, p1
-        {
-            auto theta = atan2(world.p1.env_vy+world.p1.ctrl_vy,
-                               world.p1.env_vx+world.p1.ctrl_vx) + PI/2;
-            push_tri([world.p1.x-cos(theta)*.01, world.p1.y-sin(theta)*.01,
-                      world.p1.x+cos(theta)*.01, world.p1.y+sin(theta)*.01,
-                      world.p1.x+(world.p1.env_vx+world.p1.ctrl_vx)*10,
-                      world.p1.y+(world.p1.env_vy+world.p1.ctrl_vy)*10]);
-        }
-        // Env Velocity vector, p1
-        {
-            auto theta = atan2(world.p1.env_vy,
-                               world.p1.env_vx) + PI/2;
-            push_tri([world.p1.x-cos(theta)*.01, world.p1.y-sin(theta)*.01,
-                      world.p1.x+cos(theta)*.01, world.p1.y+sin(theta)*.01,
-                      world.p1.x+(world.p1.env_vx)*10,
-                      world.p1.y+(world.p1.env_vy)*10],[0,1,0,1]);
-        }
-        // Velocity vector, p2
-        {
-            auto theta = atan2(world.p2.env_vy+world.p2.ctrl_vy,
-                               world.p2.env_vx+world.p2.ctrl_vx) + PI/2;
-            push_tri([world.p2.x-cos(theta)*.01, world.p2.y-sin(theta)*.01,
-                      world.p2.x+cos(theta)*.01, world.p2.y+sin(theta)*.01,
-                      world.p2.x+(world.p2.env_vx+world.p2.ctrl_vx)*10,
-                      world.p2.y+(world.p2.env_vy+world.p2.ctrl_vy)*10]);
-        }
-        // Env Velocity vector, p2
-        {
-            auto theta = atan2(world.p2.env_vy,
-                               world.p2.env_vx) + PI/2;
-            push_tri([world.p2.x-cos(theta)*.01, world.p2.y-sin(theta)*.01,
-                      world.p2.x+cos(theta)*.01, world.p2.y+sin(theta)*.01,
-                      world.p2.x+(world.p2.env_vx)*10,
-                      world.p2.y+(world.p2.env_vy)*10], [0,1,0,1]);
+        debug {
+            // Velocity vector, p1
+            {
+                auto theta = atan2(world.p1.env_vy+world.p1.ctrl_vy,
+                        world.p1.env_vx+world.p1.ctrl_vx) + PI/2;
+                push_tri([world.p1.x-cos(theta)*.01, world.p1.y-sin(theta)*.01,
+                        world.p1.x+cos(theta)*.01, world.p1.y+sin(theta)*.01,
+                        world.p1.x+(world.p1.env_vx+world.p1.ctrl_vx)*10,
+                        world.p1.y+(world.p1.env_vy+world.p1.ctrl_vy)*10]);
+            }
+            // Env Velocity vector, p1
+            {
+                auto theta = atan2(world.p1.env_vy,
+                        world.p1.env_vx) + PI/2;
+                push_tri([world.p1.x-cos(theta)*.01, world.p1.y-sin(theta)*.01,
+                        world.p1.x+cos(theta)*.01, world.p1.y+sin(theta)*.01,
+                        world.p1.x+(world.p1.env_vx)*10,
+                        world.p1.y+(world.p1.env_vy)*10],[0,1,0,1]);
+            }
+            // Velocity vector, p2
+            {
+                auto theta = atan2(world.p2.env_vy+world.p2.ctrl_vy,
+                        world.p2.env_vx+world.p2.ctrl_vx) + PI/2;
+                push_tri([world.p2.x-cos(theta)*.01, world.p2.y-sin(theta)*.01,
+                        world.p2.x+cos(theta)*.01, world.p2.y+sin(theta)*.01,
+                        world.p2.x+(world.p2.env_vx+world.p2.ctrl_vx)*10,
+                        world.p2.y+(world.p2.env_vy+world.p2.ctrl_vy)*10]);
+            }
+            // Env Velocity vector, p2
+            {
+                auto theta = atan2(world.p2.env_vy,
+                        world.p2.env_vx) + PI/2;
+                push_tri([world.p2.x-cos(theta)*.01, world.p2.y-sin(theta)*.01,
+                        world.p2.x+cos(theta)*.01, world.p2.y+sin(theta)*.01,
+                        world.p2.x+(world.p2.env_vx)*10,
+                        world.p2.y+(world.p2.env_vy)*10], [0,1,0,1]);
+            }
         }
 
         t++;
