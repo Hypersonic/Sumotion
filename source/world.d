@@ -64,17 +64,9 @@ class World {
                 player.ctrl_vy *= player.max_speed / sqrt(len_sq);
             }
 
-            // Move, checking collisions and reseting velocity if needed
+            // Move
             player.x += (player.env_vx + player.ctrl_vx);
-            if (outOfBounds(player)) {
-                player.x -= (player.env_vx + player.ctrl_vx);
-                player.ctrl_vx = 0;
-            }
             player.y += (player.env_vy + player.ctrl_vy);
-            if (outOfBounds(player)) {
-                player.y -= (player.env_vy + player.ctrl_vy);
-                player.ctrl_vy = 0;
-            }
 
             // Apply friction
             player.ctrl_vx *= player.friction;
@@ -97,5 +89,6 @@ class World {
             p2.x = mid_x + cos(angle) * p2.r;
             p2.y = mid_y + sin(angle) * p2.r;
         }
+
     }
 }
