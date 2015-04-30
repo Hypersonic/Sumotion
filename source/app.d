@@ -37,12 +37,6 @@ void main() {
                         case SDLK_a:
                             world.p1.left = true;
                             break;
-                        case SDLK_r:
-                            world.p1.mass *= 1.1;
-                            break;
-                        case SDLK_f:
-                            world.p1.mass /= 1.1;
-                            break;
                         case SDLK_UP:
                             world.p2.up = true;
                             break;
@@ -72,6 +66,9 @@ void main() {
                             break;
                         case SDLK_a:
                             world.p1.left = false;
+                            break;
+                        case SDLK_r:
+                            world.p1.recent_presses++;
                             break;
                         case SDLK_UP:
                             world.p2.up = false;

@@ -6,4 +6,5 @@ class Player {
           friction = .9, // Friction to apply
           mass = .2; // Effective mass, changed by player input
     bool up, down, left, right; // Buttons pressed for directions
+    float recent_presses = 0, mass_coefficient = 0;
 }

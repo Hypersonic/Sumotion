@@ -55,6 +55,20 @@ class World {
                 player.ctrl_vx -= .01;
             }
 
+            // Do stuff with the mass field 
+            import math_util;
+            import std.stdio;
+            auto sig = sigmoid(player.mass_coefficient);
+            writeln(sig);
+            player.mass = player.r + sig;
+            auto chunk_size = .15;
+            if (player.recent_presses >= chunk_size) {
+                player.mass_coefficient += chunk_size;
+                player.recent_presses -= chunk_size;
+            } else if (player.mass > player.r * 2) {
+                player.mass_coefficient -= chunk_size;
+            }
+
             import std.math;
 
             auto len_sq = player.ctrl_vx*player.ctrl_vx + player.ctrl_vy*player.ctrl_vy; 
