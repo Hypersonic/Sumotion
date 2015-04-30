@@ -57,9 +57,7 @@ class World {
 
             // Do stuff with the mass field 
             import math_util;
-            import std.stdio;
             auto sig = sigmoid(player.mass_coefficient);
-            writeln(sig);
             player.mass = player.r + sig;
             auto chunk_size = .15;
             if (player.recent_presses >= chunk_size) {
