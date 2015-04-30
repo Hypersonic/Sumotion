@@ -117,6 +117,17 @@ void main() {
         push_circle([world.p1.x, world.p1.y], world.p1.r, blue_team_color);
         push_circle([world.p2.x, world.p2.y], world.p2.r,  red_team_color);
 
+
+
+        // Check for losers
+        if (world.outOfBounds(world.p2)) {
+            writeln("p1 wins");
+            running = false;
+        } else if (world.outOfBounds(world.p1)) {
+            writeln("p2 wins");
+            running = false;
+        }
+
         import std.math;
         debug {
             // Velocity vector, p1
