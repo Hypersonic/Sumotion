@@ -82,6 +82,9 @@ void main() {
                         case SDLK_RIGHT:
                             world.p2.right = false;
                             break;
+                        case SDLK_l:
+                            world.p2.recent_presses++;
+                            break;
                         default:
                             break;
                     }
