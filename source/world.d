@@ -61,12 +61,12 @@ class World {
             player.mass = player.r + sig;
             auto chunk_size = .15;
             // Crash the circle
-            if (player.crash_circle)
-                chunk_size *= 2;
             if (player.recent_presses >= chunk_size) {
                 player.mass_coefficient += chunk_size;
                 player.recent_presses -= chunk_size;
             } else if (player.mass > player.r * 2) {
+                if (player.crash_circle)
+                    chunk_size *= 4;
                 player.mass_coefficient -= chunk_size;
             }
 
