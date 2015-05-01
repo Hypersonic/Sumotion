@@ -38,7 +38,7 @@ void main() {
                             world.p1.left = true;
                             break;
                         case SDLK_e:
-                            world.p2.crash_circle = true;
+                            world.p1.crash_circle = true;
                             break;
                         case SDLK_i:
                             world.p2.up = true;
@@ -74,7 +74,7 @@ void main() {
                             world.p1.left = false;
                             break;
                         case SDLK_e:
-                            world.p2.crash_circle = false;
+                            world.p1.crash_circle = false;
                             break;
                         case SDLK_r:
                             world.p1.recent_presses++;
@@ -141,7 +141,7 @@ void main() {
         }
 
         import std.math;
-        debug {
+        {
             auto vec_len = 20;
             // Velocity vector, p1
             {
