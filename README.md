@@ -19,12 +19,12 @@ e: Hold to collapse gravity field rapidly
 
 Player 2 (Red):
 ```
-w: Move up
-a: Move left
-s: Move down
-d: Move right
-r: Mash to expand gravity field
-e: Hold to collapse gravity field rapidly
+i: Move up
+j: Move left
+k: Move down
+l: Move right
+p: Mash to expand gravity field
+o: Hold to collapse gravity field rapidly
 ```
 
 
