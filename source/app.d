@@ -37,17 +37,23 @@ void main() {
                         case SDLK_a:
                             world.p1.left = true;
                             break;
-                        case SDLK_UP:
+                        case SDLK_e:
+                            world.p2.crash_circle = true;
+                            break;
+                        case SDLK_i:
                             world.p2.up = true;
                             break;
-                        case SDLK_DOWN:
+                        case SDLK_k:
                             world.p2.down = true;
                             break;
-                        case SDLK_LEFT:
+                        case SDLK_j:
                             world.p2.left = true;
                             break;
-                        case SDLK_RIGHT:
+                        case SDLK_l:
                             world.p2.right = true;
+                            break;
+                        case SDLK_o:
+                            world.p2.crash_circle = true;
                             break;
                         default:
                             break;
@@ -67,22 +73,28 @@ void main() {
                         case SDLK_a:
                             world.p1.left = false;
                             break;
+                        case SDLK_e:
+                            world.p2.crash_circle = false;
+                            break;
                         case SDLK_r:
                             world.p1.recent_presses++;
                             break;
-                        case SDLK_UP:
+                        case SDLK_i:
                             world.p2.up = false;
                             break;
-                        case SDLK_DOWN:
+                        case SDLK_k:
                             world.p2.down = false;
                             break;
-                        case SDLK_LEFT:
+                        case SDLK_h:
                             world.p2.left = false;
                             break;
-                        case SDLK_RIGHT:
+                        case SDLK_l:
                             world.p2.right = false;
                             break;
-                        case SDLK_l:
+                        case SDLK_o:
+                            world.p2.crash_circle = false;
+                            break;
+                        case SDLK_p:
                             world.p2.recent_presses++;
                             break;
                         default:
@@ -130,14 +142,15 @@ void main() {
 
         import std.math;
         debug {
+            auto vec_len = 20;
             // Velocity vector, p1
             {
                 auto theta = atan2(world.p1.env_vy+world.p1.ctrl_vy,
                         world.p1.env_vx+world.p1.ctrl_vx) + PI/2;
                 push_tri([world.p1.x-cos(theta)*.01, world.p1.y-sin(theta)*.01,
                         world.p1.x+cos(theta)*.01, world.p1.y+sin(theta)*.01,
-                        world.p1.x+(world.p1.env_vx+world.p1.ctrl_vx)*10,
-                        world.p1.y+(world.p1.env_vy+world.p1.ctrl_vy)*10]);
+                        world.p1.x+(world.p1.env_vx+world.p1.ctrl_vx)*vec_len,
+                        world.p1.y+(world.p1.env_vy+world.p1.ctrl_vy)*vec_len]);
             }
             // Env Velocity vector, p1
             {
@@ -145,8 +158,8 @@ void main() {
                         world.p1.env_vx) + PI/2;
                 push_tri([world.p1.x-cos(theta)*.01, world.p1.y-sin(theta)*.01,
                         world.p1.x+cos(theta)*.01, world.p1.y+sin(theta)*.01,
-                        world.p1.x+(world.p1.env_vx)*10,
-                        world.p1.y+(world.p1.env_vy)*10],[0,1,0,1]);
+                        world.p1.x+(world.p1.env_vx)*vec_len,
+                        world.p1.y+(world.p1.env_vy)*vec_len],[0,1,0,1]);
             }
             // Velocity vector, p2
             {
@@ -154,8 +167,8 @@ void main() {
                         world.p2.env_vx+world.p2.ctrl_vx) + PI/2;
                 push_tri([world.p2.x-cos(theta)*.01, world.p2.y-sin(theta)*.01,
                         world.p2.x+cos(theta)*.01, world.p2.y+sin(theta)*.01,
-                        world.p2.x+(world.p2.env_vx+world.p2.ctrl_vx)*10,
-                        world.p2.y+(world.p2.env_vy+world.p2.ctrl_vy)*10]);
+                        world.p2.x+(world.p2.env_vx+world.p2.ctrl_vx)*vec_len,
+                        world.p2.y+(world.p2.env_vy+world.p2.ctrl_vy)*vec_len]);
             }
             // Env Velocity vector, p2
             {
@@ -163,8 +176,8 @@ void main() {
                         world.p2.env_vx) + PI/2;
                 push_tri([world.p2.x-cos(theta)*.01, world.p2.y-sin(theta)*.01,
                         world.p2.x+cos(theta)*.01, world.p2.y+sin(theta)*.01,
-                        world.p2.x+(world.p2.env_vx)*10,
-                        world.p2.y+(world.p2.env_vy)*10], [0,1,0,1]);
+                        world.p2.x+(world.p2.env_vx)*vec_len,
+                        world.p2.y+(world.p2.env_vy)*vec_len], [0,1,0,1]);
             }
         }
 

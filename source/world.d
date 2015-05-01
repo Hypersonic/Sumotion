@@ -60,6 +60,9 @@ class World {
             auto sig = sigmoid(player.mass_coefficient);
             player.mass = player.r + sig;
             auto chunk_size = .15;
+            // Crash the circle
+            if (player.crash_circle)
+                chunk_size *= 2;
             if (player.recent_presses >= chunk_size) {
                 player.mass_coefficient += chunk_size;
                 player.recent_presses -= chunk_size;
@@ -84,7 +87,6 @@ class World {
             player.ctrl_vx *= player.friction;
             player.ctrl_vy *= player.friction;
         }
-
 
         // Collision detect between players
         auto dx = p2.x - p1.x;
