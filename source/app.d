@@ -85,7 +85,7 @@ void main() {
                         case SDLK_k:
                             world.p2.down = false;
                             break;
-                        case SDLK_h:
+                        case SDLK_j:
                             world.p2.left = false;
                             break;
                         case SDLK_l:
