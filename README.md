@@ -31,7 +31,10 @@ o: Hold to collapse gravity field rapidly
 Compilation
 ------------
 
-1. Make sure you have SDL2 installed. With Homebrew this would be done with `brew install sdl2`, for Ubuntu this would be done with `sudo apt-get install sdl2`.
-2. Make sure you have dub, the D package manager, installed. With Homebrew this would be done with `brew install dub`, for Ubuntu this would be done with `sudo apt-get install dub`.
+1. Make sure you have SDL2 installed. With Homebrew this would be done with `brew install sdl2`, for Ubuntu this would be done with `sudo apt-get install libsdl2-dev`.
+2. Make sure you have dub, the D package manager, installed. With Homebrew this would be done with `brew install dub`, for Ubuntu this would be done with:
+  - `sudo wget http://master.dl.sourceforge.net/project/d-apt/files/d-apt.list -O /etc/apt/sources.list.d/d-apt.list`  
+  - `sudo apt-get update && sudo apt-get -y --allow-unauthenticated install --reinstall d-apt-keyring && sudo apt-get update`
+  - `sudo apt-get install dub`
 3. Compile and run the project by typing `dub` in the project root.
 4. Enjoy!
